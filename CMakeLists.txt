@@ -37,16 +37,7 @@ find_package(pybind11 REQUIRED)
 
 find_package(Eigen3 REQUIRED)
 
-
 add_definitions(-DCGAL_EIGEN3_ENABLED)
 
-
-# create_single_source_cgal_program( "python_cgal_interface.cc" )
-pybind11_add_module(cgal SHARED src/cgal.cc)
-
-# add_library(cgal SHARED src/cgal.cc)
-# set_target_properties(cgal PROPERTIES PREFIX "")
-# target_link_libraries(cgal ${CGAL_LIBRARIES})
-target_include_directories(cgal PUBLIC ${EIGEN3_INCLUDE_DIR} ${CGAL_INCLUDE_DIRS})
-# target_link_libraries(example ${PYTHON_LIBRARIES})
-# target_include_directories(example PUBLIC ${PYBIND11_INCLUDE_DIR} ${PYTHON_INCLUDE_DIR})
+pybind11_add_module(cgal_skel SHARED src/cgal_skel.cc)
+target_include_directories(cgal_skel PUBLIC ${EIGEN3_INCLUDE_DIR} ${CGAL_INCLUDE_DIRS})
