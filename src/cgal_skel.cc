@@ -162,7 +162,7 @@ normals) {
     return skeletonize_mesh(mesh.first, mesh.second);
 }
 
-PYBIND11_MODULE(cgal, m) {
+PYBIND11_MODULE(cgal_skel, m) {
     // Add bindings here 
     m.def("poisson_mesh", poisson_mesh);
     m.def("skeletonize_mesh", skeletonize_mesh);
