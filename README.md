@@ -37,3 +37,17 @@ cp *.so /path/to/conda/environment/lib/python3.7/site-packages
 
 You can now use the bindings in python.
 
+
+Usage
+===
+```
+import cgal_skel
+import open3d
+mesh = open3d.io.read_triangle_mesh('sample/mesh.ply')
+points, lines, skelcorres = cgal_skel.skeletonize_mesh_with_corres(mesh.vertices, mesh.triangles)
+
+l = open3d.geometry.LineSet()
+l.points = open3d.utility.Vector3dVector(points)
+l.lines = open3d.utility.Vector2iVector(lines)
+open3d.visualization.draw_geometries([l])
+```
