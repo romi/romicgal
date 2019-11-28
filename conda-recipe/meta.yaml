@@ -1,0 +1,12 @@
+package:
+    name: cgal_skel
+    version: 0.1
+
+requirements:
+  build:
+    - cmake
+    - cgal
+    - pybind11
+  run:
+    - cgal
+    - pybind11
