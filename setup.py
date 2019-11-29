@@ -104,7 +104,7 @@ class BuildExt(build_ext):
         build_ext.build_extensions(self)
 
 setup(
-    name='python_example',
+    name='cgal_skel',
     version=__version__,
     author='Timothée Wintz',
     author_email='timothee@timwin.fr',
