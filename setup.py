@@ -53,7 +53,7 @@ with tempfile.TemporaryDirectory() as tmpdir:
                 os.path.join(tmpdir, "boost_1_72_0"),
             ],
             language='c++',
-            libraries=['gmp']
+            libraries=['gmp', 'mpfr']
         ),
     ]
 
