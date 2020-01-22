@@ -50,9 +50,10 @@ with tempfile.TemporaryDirectory() as tmpdir:
                 get_pybind_include(user=True),
                 *get_include_dirs("eigen3"),
                 os.path.join(tmpdir, "CGAL-5.0/include/"),
-                os.path.join(tmpdir, "boost_1_72_0")
+                os.path.join(tmpdir, "boost_1_72_0"),
             ],
-            language='c++'
+            language='c++',
+            libraries=['gmp']
         ),
     ]
 
