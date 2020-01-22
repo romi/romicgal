@@ -1,10 +1,19 @@
-import os
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
+import os
 import sys
 import setuptools
+import subprocess
+import tempfile
 
-__version__ = '0.1'
+def get_include_dirs(lib):
+        x = subprocess.run(["pkg-config", "--cflags", lib], capture_output=True, check=True)
+        l = x.stdout.decode().strip().split()
+        res = []
+        for x in l:
+            if x[:2] == '-I':
+                res.append(x[2:])
+        return res
 
 
 class get_pybind_include(object):
@@ -20,98 +29,42 @@ class get_pybind_include(object):
         import pybind11
         return pybind11.get_include(self.user)
 
-def get_eigen_include():
-    if 'EIGEN_INCLUDE_DIR' in os.environ:
-        return os.environ['EIGEN_INCLUDE_DIR']
-    else:
-        return ''
 
+with tempfile.TemporaryDirectory() as tmpdir:
 
-ext_modules = [
-    Extension(
-        'cgal_skel',
-        ['src/cgal_skel.cc'],
-        include_dirs=[
-            # Path to pybind11 headers
-            get_pybind_include(),
-            get_pybind_include(user=True),
-            get_eigen_include()
-        ],
-        language='c++'
-    ),
-]
+    deps = ['https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-5.0/CGAL-5.0-library.tar.xz',
+            'https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz']
 
+    for d in deps:
+        subprocess.run(["wget", "-P", tmpdir, d], check=True)
+        d = os.path.basename(d)
+        subprocess.run(["tar", "-xvf", os.path.join(tmpdir, d), "-C", tmpdir], check=True)
+        
+    ext_modules = [
+        Extension(
+            'cgal_skel',
+            ['src/cgal_skel.cc'],
+            include_dirs=[
+                # Path to pybind11 headers
+                get_pybind_include(),
+                get_pybind_include(user=True),
+                *get_include_dirs("eigen3"),
+                os.path.join(tmpdir, "CGAL-5.0/include/"),
+                os.path.join(tmpdir, "boost_1_72_0")
+            ],
+            language='c++'
+        ),
+    ]
 
-# As of Python 3.6, CCompiler has a `has_flag` method.
-# cf http://bugs.python.org/issue26689
-def has_flag(compiler, flagname):
-    """Return a boolean indicating whether a flag name is supported on
-    the specified compiler.
-    """
-    import tempfile
-    with tempfile.NamedTemporaryFile('w', suffix='.cpp') as f:
-        f.write('int main (int argc, char **argv) { return 0; }')
-        try:
-            compiler.compile([f.name], extra_postargs=[flagname])
-        except setuptools.distutils.errors.CompileError:
-            return False
-    return True
-
-
-def cpp_flag(compiler):
-    """Return the -std=c++[11/14/17] compiler flag.
-    The newer version is prefered over c++11 (when it is available).
-    """
-    flags = ['-std=c++17', '-std=c++14', '-std=c++11']
-
-    for flag in flags:
-        if has_flag(compiler, flag): return flag
-
-    raise RuntimeError('Unsupported compiler -- at least C++11 support '
-                       'is needed!')
-
-
-class BuildExt(build_ext):
-    """A custom build extension for adding compiler-specific options."""
-    c_opts = {
-        'msvc': ['/EHsc'],
-        'unix': [],
-    }
-    l_opts = {
-        'msvc': [],
-        'unix': [],
-    }
-
-    if sys.platform == 'darwin':
-        darwin_opts = ['-stdlib=libc++', '-mmacosx-version-min=10.7']
-        c_opts['unix'] += darwin_opts
-        l_opts['unix'] += darwin_opts
-
-    def build_extensions(self):
-        ct = self.compiler.compiler_type
-        opts = self.c_opts.get(ct, [])
-        link_opts = self.l_opts.get(ct, [])
-        if ct == 'unix':
-            opts.append('-DVERSION_INFO="%s"' % self.distribution.get_version())
-            opts.append(cpp_flag(self.compiler))
-            if has_flag(self.compiler, '-fvisibility=hidden'):
-                opts.append('-fvisibility=hidden')
-        elif ct == 'msvc':
-            opts.append('/DVERSION_INFO=\\"%s\\"' % self.distribution.get_version())
-        for ext in self.extensions:
-            ext.extra_compile_args = opts
-            ext.extra_link_args = link_opts
-        build_ext.build_extensions(self)
-
-setup(
-    name='cgal_skel',
-    version=__version__,
-    author='Timothée Wintz',
-    author_email='timothee@timwin.fr',
-    long_description='',
-    ext_modules=ext_modules,
-    install_requires=['pybind11>=2.4'],
-    setup_requires=['pybind11>=2.4'],
-    cmdclass={'build_ext': BuildExt},
-    zip_safe=False,
-)
+    s = setup(
+        name='cgal_skel',
+        ext_modules=ext_modules,
+        author='Timothée Wintz',
+        author_email='timothee@timwin.fr',
+        description='A plant scanner',
+        install_requires=['pybind11>=2.4'],
+        setup_requires=['pybind11>=2.4', "setuptools_scm"],
+        long_description='',
+        zip_safe=False,
+        use_scm_version=True,
+    )

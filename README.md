@@ -1,6 +1,15 @@
 CGAL Python bindings for skeletonization
 ===
 
+# Pip install
+
+Install with pip using
+```
+pip install https://github.com/romi/cgal_bindings_skeletonization
+```
+
+# CONDA Install
+
 Dependencies:
 
 * CGAL
@@ -8,6 +17,7 @@ Dependencies:
 * Boost
 * Pybind11
 * CMake
+
 
 Install them with conda:
 
