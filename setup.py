@@ -6,14 +6,19 @@ import setuptools
 import subprocess
 import tempfile
 
+
 def get_include_dirs(lib):
+    if sys.version_info >= (3,7):
         x = subprocess.run(["pkg-config", "--cflags", lib], capture_output=True, check=True)
-        l = x.stdout.decode().strip().split()
-        res = []
-        for x in l:
-            if x[:2] == '-I':
-                res.append(x[2:])
-        return res
+    else:
+        x = subprocess.run(["pkg-config", "--cflags", lib], stdout=subprocess.PIPE, check=True)
+
+    l = x.stdout.decode().strip().split()
+    res = []
+    for x in l:
+        if x[:2] == '-I':
+            res.append(x[2:])
+    return res
 
 
 class get_pybind_include(object):
