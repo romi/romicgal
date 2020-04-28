@@ -38,7 +38,7 @@ with tempfile.TemporaryDirectory() as tmpdir:
     for d in deps:
         subprocess.run(["wget", "-P", tmpdir, d], check=True)
         d = os.path.basename(d)
-        subprocess.run(["tar", "-xvf", os.path.join(tmpdir, d), "-C", tmpdir], check=True)
+        subprocess.run(["tar", "-xf", os.path.join(tmpdir, d), "-C", tmpdir], check=True)
         
     ext_modules = [
         Extension(
