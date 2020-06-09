@@ -47,7 +47,7 @@ with tempfile.TemporaryDirectory() as tmpdir:
         
     ext_modules = [
         Extension(
-            'cgal_skel',
+            'romicgal',
             ['src/cgal_skel.cc'],
             include_dirs=[
                 # Path to pybind11 headers
@@ -64,7 +64,7 @@ with tempfile.TemporaryDirectory() as tmpdir:
     ]
 
     s = setup(
-        name='cgal_skel',
+        name='romicgal',
         ext_modules=ext_modules,
         author='Timothée Wintz',
         author_email='timothee@timwin.fr',
