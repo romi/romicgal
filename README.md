@@ -1,11 +1,19 @@
 CGAL Python bindings for skeletonization
 ===
 
-# Pip install
-
-Install with 
+## Requirements
+You will have to install `eigen3` on your system.
+For example on Ubuntu:
+```bash
+sudo apt install libeigen3-dev
 ```
-python setup.py install
+
+## Pip install
+
+Install with:
+```
+cd romicgal
+python -m pip install .
 ```
 
 
