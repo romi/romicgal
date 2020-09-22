@@ -2,10 +2,10 @@ CGAL Python bindings for skeletonization
 ===
 
 ## Requirements
-You will have to install `eigen3` on your system.
+You will have to install `eigen3`, `gmp`, `mpfr` on your system.
 For example on Ubuntu:
 ```bash
-sudo apt install libeigen3-dev
+sudo apt install libeigen3-dev libgmp-dev libmpfr-dev
 ```
 
 ## Pip install
