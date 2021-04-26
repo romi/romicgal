@@ -38,7 +38,7 @@ class get_pybind_include(object):
 with tempfile.TemporaryDirectory() as tmpdir:
 
     deps = ['https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-5.0/CGAL-5.0-library.tar.xz',
-            'https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz']
+            'https://github.com/boostorg/boost/archive/refs/tags/boost-1.72.0.tar.gz']
 
     for d in deps:
         subprocess.run(["wget", "-P", tmpdir, d], check=True)
