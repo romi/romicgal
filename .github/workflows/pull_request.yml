@@ -5,10 +5,14 @@ name: CI
 on: pull_request
 
 jobs:
-    conda-build:
-        runs-on: ubuntu-latest
-        steps:
-         - uses: actions/checkout@v2
-         - name: Build and upload conda packages
-           run: |
-            conda build conda/recipe/ -c conda-forge -c open3d-admin --user romi-eu
+  conda-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-activate-base: true
+          activate-environment: ""
+      - name: Build and upload conda packages
+        run: |
+          conda install conda-build anaconda-client
+          conda build conda/recipe/ -c conda-forge -c open3d-admin --user romi-eu
