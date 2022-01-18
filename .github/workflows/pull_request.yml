@@ -5,41 +5,10 @@ name: CI
 on: pull_request
 
 jobs:
-    docker-build:
-        runs-on: self-hosted
-
-        steps:
-         - uses: actions/checkout@v1
-           with:
-             submodules: true
-         - name: Build Dockerfile
-           run: |
-            ./docker/build.sh -t ${{ github.sha }} --no-cache
-    
     conda-build:
         runs-on: ubuntu-latest
-
         steps:
          - uses: actions/checkout@v2
          - name: Build and upload conda packages
            run: |
             conda build conda/recipe/ -c conda-forge -c open3d-admin --user romi-eu
-
-    unit-tests:
-        runs-on: self-hosted
-        needs: docker-build
-
-        steps:
-         - name: Run Unit Tests
-           run: |
-            ./docker/run.sh -t ${{ github.sha }}
-
-    docker-clean:
-       runs-on: self-hosted
-       needs: [integration-tests, unit-tests]
-       if: always()
-
-       steps:
-        - name: Remove Docker Image
-          run: |
-            docker image rm plant3dvision:${{ github.sha }}
