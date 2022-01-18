@@ -1,5 +1,6 @@
-from open3d import open3d
 import numpy as np
+from open3d import open3d
+
 import romicgal
 
 mesh = open3d.io.read_triangle_mesh("sample/mesh.ply")
