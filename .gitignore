@@ -96,7 +96,6 @@ celerybeat-schedule
 # Environments
 .env
 .venv
-env/
 venv/
 ENV/
 env.bak/
@@ -125,3 +124,6 @@ dmypy.json
 *.tcl
 CMakeCache.txt
 CMakeFiles/
+
+# Unignore conda packaging
+!/conda/env/

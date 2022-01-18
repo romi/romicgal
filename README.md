@@ -1,5 +1,4 @@
-CGAL Python bindings for skeletonization
-===
+# CGAL Python bindings for skeletonization
 
 ## Requirements
 You will have to install `eigen3`, `gmp`, `mpfr` on your system.
@@ -19,12 +18,12 @@ sudo apt install libboost-dev
 ### Clone the sources
 ```shell
 git clone https://github.com/romi/romicgal.git
+cd romicgal
 ```
 
-### Install with pip
+### A - Install the sources with pip
 Install with:
 ```shell
-cd romicgal
 python -m pip install -e .
 ```
 Note that the `-e` option install the pacakge in "editable" mode, if you don't think of contributing to the development of `romicgal` you can remove it.
@@ -34,11 +33,20 @@ To run the example, you will also need `open3d`:
 python -m pip install open3d == 0.9.0.0
 ```
 
-Usage
-===
+### B - Install the sources with conda
+You can install the package in an isolated conda environment with:
+```shell
+conda env create --file conda/env/romicgal.yaml
+```
+To use the newly installed package, do not forget to activate the conda environment:
+```shell
+conda activate romicgal
+```
+
+## Usage
 ```python
 import romicgal
-import open3d
+from open3d import open3d
 mesh = open3d.io.read_triangle_mesh('sample/mesh.ply')
 points, lines, skelcorres = romicgal.skeletonize_mesh_with_corres(mesh.vertices, mesh.triangles)
 
@@ -47,3 +55,12 @@ l.points = open3d.utility.Vector3dVector(points)
 l.lines = open3d.utility.Vector2iVector(lines)
 open3d.visualization.draw_geometries([l])
 ```
+
+## Conda
+
+### Build package
+To build the `romicgal`conda package, from the base environment:
+```shell
+conda build conda/recipe/ -c conda-forge -c open3d-admin --user romi-eu
+```
+
