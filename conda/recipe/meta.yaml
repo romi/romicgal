@@ -1,0 +1,45 @@
+package:
+  name: romicgal
+  version: {{ environ.get('GIT_DESCRIBE_TAG', '0.0.1') }}
+
+source:
+  path: ../..
+  git_tag: master
+
+build:
+  number: {{ environ.get('GIT_DESCRIBE_NUMBER', '0') }}
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+    - gmp
+    - mpfr
+    - python {{ python }}
+    - pip
+    - setuptools_scm
+    - pybind11 >=2.4
+  host:
+    - python {{ python }}
+    - pybind11 >=2.4
+  run:
+    - python {{ python }}
+
+test:
+  imports:
+    - romicgal  # test the import of romicgal
+  requires:
+    - numpy
+    - open3d
+  source_files:
+    - sample
+    - test
+  commands:
+    - python test/test.py  # call some wrapped methods but assert (test) nothing
+
+about:
+  home: https://docs.romi-project.eu/documentation/
+  license: LGPL-3.0
+  license_file: LICENSE.txt
+  summary: Quick wrapper around CGAL-5.0.
+  dev_url: https://github.com/romi/romicgal
+  doc_source_url: https://github.com/romi/romicgal/blob/master/README.md

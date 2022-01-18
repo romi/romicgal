@@ -1,0 +1,12 @@
+name: romicgal
+channels:
+  - defaults
+  - conda-forge
+  - open3d-admin
+dependencies:
+  - gxx_linux-64
+  - gmp
+  - mpfr
+  - pip
+  - pybind11 >=2.4
+  - open3d
