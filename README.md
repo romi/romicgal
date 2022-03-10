@@ -58,9 +58,14 @@ open3d.visualization.draw_geometries([l])
 
 ## Conda
 
-### Build package
-To build the `romicgal`conda package, from the base environment:
+### Build packages
+To build the `romicgal` conda packages, in the `base` environment from the root folder, run:
 ```shell
-conda build conda/recipe/ -c conda-forge -c open3d-admin --user romi-eu
+conda build conda/recipe/ -c conda-forge -c open3d-admin
 ```
 
+### Upload packages
+After a successful build, to upload the packages, run:
+```shell
+anaconda upload --user romi-eu --label main ~/miniconda3/conda-bld/linux-64/romicgal*.tar.bz2
+```
