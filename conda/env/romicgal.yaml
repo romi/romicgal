@@ -7,6 +7,6 @@ dependencies:
   - gxx_linux-64
   - gmp
   - mpfr
-  - pip
+  - pip >=20.3
   - pybind11 >=2.4
-  - open3d
+  - open3d <0.15

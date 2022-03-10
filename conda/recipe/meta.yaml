@@ -4,7 +4,7 @@ package:
 
 source:
   path: ../..
-  git_tag: master
+#  git_tag: master
 
 build:
   number: {{ environ.get('GIT_DESCRIBE_NUMBER', '0') }}
@@ -29,7 +29,7 @@ test:
     - romicgal  # test the import of romicgal
   requires:
     - numpy
-    - open3d
+    - open3d <0.15
   source_files:
     - sample
     - test
