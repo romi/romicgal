@@ -16,16 +16,10 @@ conda install romicgal -c romi-eu
 
 #### Requirements
 
-You have to install `eigen3`, `gmp`, `mpfr` on your system. For example on Ubuntu:
+You have to install `eigen3`, `gmp`, `mpfr` &  `libcgal-dev` on your system. For example on Ubuntu:
 
 ```shell
-sudo apt install libeigen3-dev libgmp-dev libmpfr-dev
-```
-
-You may need to install the headers for Boost C++ libraries development files. For example on Ubuntu:
-
-```shell
-sudo apt install libboost-dev
+sudo apt install libcgal-dev
 ```
 
 #### Clone the sources
@@ -49,9 +43,6 @@ Now you show activate your environment (here named `romicgal`) and install the s
 conda activate romicgal
 python -m pip install -e .
 ```
-
-:warning:WARNING:warning:
-> This will download and install `boost 1.72` & `CGAL 5.0`!
 
 ## Usage
 
