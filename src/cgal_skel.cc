@@ -19,7 +19,7 @@
 // typedef CGAL::Simple_cartesian<double> Kernel;
 typedef CGAL::Exact_predicates_inexact_constructions_kernel Kernel;
 typedef Kernel::Point_3 Point;
-typedef Kernel::Vector_3 Vector;
+typedef Kernel::Vector_3 KVector;
 typedef CGAL::Surface_mesh<Point> Triangle_mesh;
 typedef boost::graph_traits<Triangle_mesh>::vertex_descriptor vertex_descriptor;
 typedef CGAL::Mean_curvature_flow_skeletonization<Triangle_mesh>
@@ -28,7 +28,7 @@ typedef Skeletonization::Skeleton Skeleton;
 typedef Skeleton::vertex_descriptor Skeleton_vertex;
 typedef Skeleton::edge_descriptor Skeleton_edge;
 
-typedef std::pair<Point, Vector> Pwn;
+typedef std::pair<Point, KVector> Pwn;
 
 using namespace Eigen;
 
@@ -115,8 +115,8 @@ std::vector<Pwn> arrays_to_pcd(const ArrayX3d &point_array,
     size_t n_points = point_array.rows();
     for (size_t i = 0; i < n_points; i++) {
         Point pt(point_array(i, 0), point_array(i, 1), point_array(i, 2));
-        Vector n(normal_array(i, 0), normal_array(i, 1), normal_array(i, 2));
-        points.push_back(Pwn(pt, n));
+        KVector norm_vec(normal_array(i, 0), normal_array(i, 1), normal_array(i, 2));
+        points.push_back(Pwn(pt, norm_vec));
     }
     return points;
 }
@@ -163,7 +163,7 @@ normals) {
 }
 
 PYBIND11_MODULE(romicgal, m) {
-    // Add bindings here 
+    // Add bindings here
     m.def("poisson_mesh", poisson_mesh);
     m.def("skeletonize_mesh", skeletonize_mesh);
     m.def("skeletonize_pcd", skeletonize_pcd);
