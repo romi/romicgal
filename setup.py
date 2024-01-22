@@ -84,8 +84,6 @@ opts = dict(
     zip_safe=False,
     install_requires=[
         'pybind11 >=2.4',
-    ],
-    extras_require=[
         'open3d >=0.9.0.0',
     ],
     python_requires='>=3.8',
