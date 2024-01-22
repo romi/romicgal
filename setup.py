@@ -39,6 +39,8 @@ class get_pybind_include(object):
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+# Reference on building C and C++ Extensions:
+# https://docs.python.org/3/extending/building.html
 ext_modules = [
     Extension(
         'romicgal',
@@ -57,10 +59,13 @@ ext_modules = [
     ),
 ]
 
+# References for the following keywords:
+# https://setuptools.pypa.io/en/latest/references/keywords.html
+# https://packaging.python.org/en/latest/specifications/core-metadata/
 opts = dict(
     name='romicgal',
     version='0.0.2',
-    description='Python bindings, mostly to use `CGAL/extract_mean_curvature_flow_skeleton` with CGAL-5.4.1.',
+    description='Python CGAL bindings for skeletonization.',
     long_description=long_description,
     long_description_content_type='text/markdown',
     author='Timothée Wintz',
