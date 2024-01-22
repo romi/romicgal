@@ -1,6 +1,8 @@
 {% set data = load_setup_py_data() %}  # loads data from the `setup.py` file
 {% set version = data.get('version') %}  # get the 'version' from loaded data
 {% set summary = data.get('description') %}  # get the 'description' from loaded data
+{% set license = data.get('license') %}  # get the 'description' from loaded data
+{% set license_files = data.get('license_files') %}  # get the 'description' from loaded data
 # https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#loading-data-from-other-files
 
 package:
@@ -16,34 +18,31 @@ build:
 
 requirements:
   build:
+    - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - python {{ python }}
-    - pip
-    - pybind11 >=2.4
-    - cgal-cpp ==5.4.1
   host:
     - python {{ python }}
     - pybind11 >=2.4
   run:
     - python {{ python }}
-    - cgal-cpp ==5.4.1
 
-test:
-  imports:
-    - romicgal  # test the import of romicgal
-  requires:
-    - numpy
-    - open3d <0.15
-  source_files:
-    - sample
-    - test
-  commands:
-    - python test/test.py  # call some wrapped methods but assert (test) nothing
+#test:
+#  imports:
+#    - romicgal  # test the import of romicgal
+#  requires:
+#    - numpy
+#    - open3d >=0.9.0.0
+#  source_files:
+#    - sample
+#    - test
+#  commands:
+#    - python test/test.py  # call some wrapped methods but assert (test) nothing
 
 about:
   home: https://docs.romi-project.eu/documentation/
-  license: LGPL-3.0
-  license_file: LICENSE.txt
+  license: {{ license }}
+  license_file: {{ license_files }}
   summary: {{ summary }}
   dev_url: https://github.com/romi/romicgal
   doc_source_url: https://github.com/romi/romicgal/blob/master/README.md

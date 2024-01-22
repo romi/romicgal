@@ -1,13 +1,12 @@
+{% set data = load_setup_py_data() %}  # loads data from the `setup.py` file
+{% set python_requires = data.get('python_requires') %}  # get the 'version' from loaded data
+
 name: romicgal
 channels:
   - defaults
   - conda-forge
-  - open3d-admin
 dependencies:
-  - gxx_linux-64
-#  - gmp
-#  - mpfr
-#  - cgal ==5.4
-  - pip >=20.3
-  - pybind11 >=2.4
-  - open3d <0.15
+  - python {{ python_requires}}
+  - pip>= 20.3
+  - pip:
+    - open3d>= 0.9.0.0
