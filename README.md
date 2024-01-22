@@ -103,7 +103,7 @@ conda activate romicgal
 To build the `romicgal` conda packages, in the `base` environment from the root folder, run:
 
 ```shell
-conda build conda/recipe/ -c conda-forge -c open3d-admin
+conda build conda/recipe/ -c conda-forge
 ```
 
 :warning:WARNING:warning:
