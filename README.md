@@ -1,5 +1,25 @@
 # CGAL Python bindings for skeletonization
 
+Python bindings to use: `CGAL/extract_mean_curvature_flow_skeleton`.
+<figure>
+<img src="doc/assets/paper_preview.png" width=350>
+<figcaption>It is a curve skeleton extraction algorithm for a triangulated polygonal mesh without borders based on the mean curvature flow. 
+
+<u>Source</u>: Tagliasacchi et al., _Mean curvature skeletons_. **Computer Graphics Forum** (2012).
+</figcaption>
+</figure>
+
+
+
+## Reference
+Andrea Tagliasacchi, Ibraheem Alhashim, Matt Olson, and Hao Zhang. _Mean curvature skeletons_. **Computer Graphics Forum** (Proceedings of the Symposium on Geometry Processing), 31(5):1735–1744, 2012.
+[10.1111/j.1467-8659.2012.03178.x](https://doi.org/10.1111/j.1467-8659.2012.03178.x).
+
+Free [PDF](https://www.cs.sfu.ca/~haoz/pubs/tag_sgp12.pdf).
+
+CGAL Reference manual for [Surface mesh skeletonization](
+https://doc.cgal.org/5.4.5/Surface_mesh_skeletonization/group__PkgSurfaceMeshSkeletonizationRef.html).
+
 ## Getting started
 
 The recommended installation procedure is to **use the conda package**.
@@ -16,10 +36,19 @@ conda install romicgal -c romi-eu
 
 #### Requirements
 
-You have to install `eigen3`, `gmp`, `mpfr` &  `libcgal-dev` on your system. For example on Ubuntu:
+You have to install:
+    - `python3-dev`
+    - `python3-pip`
+    - `gcc`
+    - `build-essential`
+    - `libeigen3-dev`
+    - `libcgal-dev`
 
+For example on Ubuntu:
 ```shell
-sudo apt install libcgal-dev
+sudo apt install python3-dev python3-pip \
+    gcc build-essential \
+    libeigen3-dev libcgal-dev
 ```
 
 #### Clone the sources

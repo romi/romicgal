@@ -5,8 +5,9 @@ channels:
   - open3d-admin
 dependencies:
   - gxx_linux-64
-  - gmp
-  - mpfr
+#  - gmp
+#  - mpfr
+#  - cgal ==5.4
   - pip >=20.3
   - pybind11 >=2.4
   - open3d <0.15
