@@ -26,6 +26,7 @@ requirements:
     - pybind11 >=2.4
   run:
     - python {{ python }}
+    - libstdcxx-ng
 
 #test:
 #  imports:
