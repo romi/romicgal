@@ -1,6 +1,3 @@
-data
-scans
-
 # Byte-compiled / optimized / DLL files
 **/__pycache__/
 *.py[cod]
@@ -87,8 +84,9 @@ ipython_config.py
 # pyenv
 .python-version
 
-# celery beat schedule file
+# Celery stuff
 celerybeat-schedule
+celerybeat.pid
 
 # SageMath parsed files
 *.sage.py
@@ -125,5 +123,5 @@ dmypy.json
 CMakeCache.txt
 CMakeFiles/
 
-# Unignore conda packaging
-!/conda/env/
+# PyCharm
+.idea/
