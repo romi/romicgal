@@ -1,13 +1,10 @@
-{% set data = load_setup_py_data() %}  # loads data from the `setup.py` file
-{% set python_requires = data.get('python_requires') %}  # get the 'version' from loaded data
-
 name: romicgal
 channels:
   - defaults
   - conda-forge
 dependencies:
-  - python {{ python_requires}}
+  - python>=3.8
   - libstdcxx-ng  # required to use `open3d.visualization.draw`
-  - pip>= 20.3
+  - pip>=20.3
   - pip:
-    - open3d>= 0.9.0.0
+    - open3d>=0.9.0.0
