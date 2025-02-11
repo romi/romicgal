@@ -1,30 +1,31 @@
-# CGAL Python bindings for skeletonization
+# CGAL Python Bindings for Skeletonization
 
 Python bindings to use: `CGAL/extract_mean_curvature_flow_skeleton`.
-<figure>
-<img src="doc/assets/paper_preview.png" width=350>
-<figcaption>It is a curve skeleton extraction algorithm for a triangulated polygonal mesh without borders based on the mean curvature flow. 
 
-<u>Source</u>: Tagliasacchi et al., _Mean curvature skeletons_. **Computer Graphics Forum** (2012).
-</figcaption>
+<figure>
+  <img src="doc/assets/paper_preview.png" width="350" />
+  <figcaption>
+    This algorithm extracts a curve skeleton for a triangulated polygonal mesh without borders, based on mean curvature flow.  
+    <u>Source</u>: Tagliasacchi et al., _Mean Curvature Skeletons_. **Computer Graphics Forum** (2012).
+  </figcaption>
 </figure>
 
-
-
 ## Reference
-Andrea Tagliasacchi, Ibraheem Alhashim, Matt Olson, and Hao Zhang. _Mean curvature skeletons_. **Computer Graphics Forum** (Proceedings of the Symposium on Geometry Processing), 31(5):1735–1744, 2012.
-[10.1111/j.1467-8659.2012.03178.x](https://doi.org/10.1111/j.1467-8659.2012.03178.x).
 
-Free [PDF](https://www.cs.sfu.ca/~haoz/pubs/tag_sgp12.pdf).
+Andrea Tagliasacchi, Ibraheem Alhashim, Matt Olson, and Hao Zhang. _Mean Curvature Skeletons_.  
+**Computer Graphics Forum** (Proceedings of the Symposium on Geometry Processing), 31(5):1735–1744, 2012.  
+[10.1111/j.1467-8659.2012.03178.x](https://doi.org/10.1111/j.1467-8659.2012.03178.x).  
+
+Free [PDF](https://www.cs.sfu.ca/~haoz/pubs/tag_sgp12.pdf).  
 
 CGAL Reference manual for [Surface mesh skeletonization](
 https://doc.cgal.org/5.4.5/Surface_mesh_skeletonization/group__PkgSurfaceMeshSkeletonizationRef.html).
 
-## Getting started
+## Getting Started
 
 The recommended installation procedure is to **use the conda package**.
 
-### Conda package
+### Conda Package
 
 In the **activated** environment of your choice, to install the conda package, simply run:
 
@@ -32,33 +33,33 @@ In the **activated** environment of your choice, to install the conda package, s
 conda install romicgal -c romi-eu
 ```
 
-### Install from sources
+### Install from Sources
 
 #### Requirements
 
-You have to install:
-    - `python3-dev`
-    - `python3-pip`
-    - `gcc`
-    - `build-essential`
-    - `libeigen3-dev`
-    - `libcgal-dev`
+You need to install:  
+- `gcc`  
+- `build-essential`  
+- `libeigen3-dev`  
+- `libcgal-dev`
 
-For example on Ubuntu:
+For example, on Ubuntu:
 ```shell
-sudo apt install python3-dev python3-pip \
-    gcc build-essential \
-    libeigen3-dev libcgal-dev
+sudo apt install \
+    build-essential \
+    gcc \
+    libcgal-dev \
+    libeigen3-dev
 ```
 
-#### Clone the sources
+#### Clone the Sources
 
 ```shell
 git clone https://github.com/romi/romicgal.git
 cd romicgal
 ```
 
-#### Build & install
+#### Build & Install
 
 You can install the package dependencies in an isolated conda environment with:
 
@@ -66,7 +67,7 @@ You can install the package dependencies in an isolated conda environment with:
 conda env create --file conda/env/romicgal.yaml
 ```
 
-Now you show activate your environment (here named `romicgal`) and install the sources with `pip`:
+Now you should activate your environment (named `romicgal` here) and install the sources with `pip`:
 
 ```shell
 conda activate romicgal
@@ -76,6 +77,7 @@ python -m pip install -e .
 ## Usage
 
 A quick usage example:
+
 ```python
 import romicgal
 from open3d import open3d
@@ -89,29 +91,29 @@ l.lines = open3d.utility.Vector2iVector(lines)
 open3d.visualization.draw_geometries([l])
 ```
 
-:warning:WARNING:warning:
+:warning: **WARNING** :warning:  
 To use the newly installed package, do not forget to activate the conda environment:
 
 ```shell
 conda activate romicgal
 ```
 
-## Conda packaging
+## Conda Packaging
 
-### Build packages
+### Build Packages
 
-To build the `romicgal` conda packages, in the `base` environment from the root folder, run:
+To build the `romicgal` conda packages, from the root folder in the `base` environment, run:
 
 ```shell
 conda build conda/recipe/ -c conda-forge
 ```
 
-:warning:WARNING:warning:
+:warning: **WARNING** :warning:  
 > This must be done in the `base` environment!
 
 Built packages are available under `~/miniconda3/conda-bld/linux-64/`.
 
-### Upload packages
+### Upload Packages
 
 After a successful build, to upload the packages, run:
 
