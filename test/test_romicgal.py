@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import unittest
 
 import numpy as np
@@ -22,7 +25,6 @@ class TestRomicgalMethods(unittest.TestCase):
         self.assertTrue(self.sample_point_cloud.has_normals(),
                         "Input point cloud does not have normals!")
 
-        # Call the method and validate the output
         vertices, triangles = romicgal.poisson_mesh(
             np.asarray(self.sample_point_cloud.points),
             np.asarray(self.sample_point_cloud.normals)
@@ -35,13 +37,11 @@ class TestRomicgalMethods(unittest.TestCase):
         """
         Test the `skeletonize_mesh` method for skeletonizing a triangle mesh.
         """
-        # Call the method and validate the output
         skeleton_vertices, skeleton_edges = romicgal.skeletonize_mesh(
             np.asarray(self.sample_mesh.vertices),
             np.asarray(self.sample_mesh.triangles)
         )
 
-        # Validate vertices and edges of the skeleton
         self.assertIsInstance(skeleton_vertices, np.ndarray,
                               "Skeleton vertices output is not a numpy array!")
         self.assertEqual(skeleton_vertices.shape[1], 3,
@@ -62,12 +62,10 @@ class TestRomicgalMethods(unittest.TestCase):
         self.assertTrue(self.sample_point_cloud.has_normals(),
                         "Input point cloud does not have normals!")
 
-        # Call the method and validate the output
         skeleton_vertices, skeleton_edges = romicgal.skeletonize_pcd(
             np.asarray(self.sample_point_cloud.points),
             np.asarray(self.sample_point_cloud.normals))
 
-        # Validate vertices and edges of the skeleton
         self.assertIsInstance(skeleton_vertices, np.ndarray,
                               "Skeleton vertices output is not a numpy array!")
         self.assertEqual(skeleton_vertices.shape[1], 3,
@@ -86,13 +84,11 @@ class TestRomicgalMethods(unittest.TestCase):
         Test the `skeletonize_mesh_with_corres` method for skeletonizing a triangle mesh along
         with computing the correspondence of vertices.
         """
-        # Call the method and validate the output
         skeleton_vertices, skeleton_edges, correspondence = romicgal.skeletonize_mesh_with_corres(
             np.asarray(self.sample_mesh.vertices),
             np.asarray(self.sample_mesh.triangles)
         )
 
-        # Validate vertices and edges of the skeleton
         self.assertIsInstance(skeleton_vertices, np.ndarray,
                               "Skeleton vertices output is not a numpy array!")
         self.assertEqual(skeleton_vertices.shape[1], 3,
