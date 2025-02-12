@@ -52,6 +52,8 @@ typedef std::pair<Point, KVector> Pwn;
 
 using namespace Eigen;
 
+namespace py = pybind11;
+
 /**
  * @brief Converts a CGAL skeleton into arrays of vertex coordinates and edge indices.
  *
@@ -113,7 +115,6 @@ RowVectorXi skeleton_mesh_correspondance(const Skeleton &skeleton, int n) {
     RowVectorXi corres(n);
 
     // For each skeleton vertex, retrieve the associated original mesh vertices
-    auto es = boost::edges(skeleton);
     for (Skeleton_vertex v : CGAL::make_range(vertices(skeleton))) {
         for (vertex_descriptor vd : skeleton[v].vertices) {
             // The original mesh vertex 'vd' corresponds to skeleton vertex 'v'
@@ -202,8 +203,7 @@ std::pair<ArrayX3d, ArrayX3i> mesh_to_arrays(const Triangle_mesh &tmesh) {
     for (auto fd : tmesh.faces()) {
         int j = 0;
         // A vertex-circulator to traverse the vertices of the face
-        CGAL::Vertex_around_face_circulator<Triangle_mesh> vcirc(tmesh.halfedge(fd), tmesh);
-        CGAL::Vertex_around_face_circulator<Triangle_mesh> done(vcirc);
+        CGAL::Vertex_around_face_circulator<Triangle_mesh> vcirc(tmesh.halfedge(fd), tmesh), done(vcirc);
 
         // Collect the 3 vertices for each face
         do {
@@ -278,8 +278,7 @@ std::pair<ArrayX3d, ArrayX3i> poisson_mesh(ArrayX3d point_array,
         output_mesh, average_spacing);
 
     // Convert reconstructed mesh to arrays
-    std::pair<ArrayX3d, ArrayX3i> res = mesh_to_arrays(output_mesh);
-    return res;
+    return mesh_to_arrays(output_mesh);
 }
 
 /**
@@ -332,8 +331,7 @@ std::pair<ArrayX3d, ArrayX2i> skeletonize_mesh(ArrayX3d& points,
  */
 std::tuple<ArrayX3d, ArrayX2i, RowVectorXi> skeletonize_mesh_with_corres(
     ArrayX3d& points,
-    ArrayX3i triangles
-) {
+    ArrayX3i triangles) {
     // Build a Triangle_mesh from the arrays
     Triangle_mesh tmesh = arrays_to_mesh(points, triangles);
     // Skeleton object to store results
@@ -374,11 +372,19 @@ std::pair<ArrayX3d, ArrayX2i> skeletonize_pcd(ArrayX3d& points,
 // Pybind11 module definition: Expose the above functions to Python
 PYBIND11_MODULE(romicgal, m) {
     // Expose poisson_mesh
-    m.def("poisson_mesh", poisson_mesh);
+    m.def("poisson_mesh", &poisson_mesh,
+          py::arg("points"), py::arg("normals"),
+          "Perform Poisson reconstruction and return vertices and faces as NumPy arrays.");
     // Expose skeletonize_mesh
-    m.def("skeletonize_mesh", skeletonize_mesh);
+    m.def("skeletonize_mesh", &skeletonize_mesh,
+          py::arg("vertices"), py::arg("triangles"),
+          "Generates a skeleton from a triangular mesh defined by the given vertices and triangles.");
     // Expose skeletonize_pcd
-    m.def("skeletonize_pcd", skeletonize_pcd);
+    m.def("skeletonize_pcd", &skeletonize_pcd,
+          py::arg("points"), py::arg("normals"),
+          "Generates a skeleton from a pointcloud defined by the given points and normals.");
     // Expose skeletonize_mesh_with_corres
-    m.def("skeletonize_mesh_with_corres", skeletonize_mesh_with_corres);
+    m.def("skeletonize_mesh_with_corres", &skeletonize_mesh_with_corres,
+          py::arg("vertices"), py::arg("triangles"),
+          "Skeletonize a triangle mesh and compute correspondence to the original mesh.");
 }
