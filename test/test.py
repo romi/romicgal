@@ -3,7 +3,8 @@ from open3d import open3d
 
 import romicgal
 
-mesh = open3d.io.read_triangle_mesh("sample/mesh.ply")
+open3d.io.read_point_cloud()
+mesh = open3d.io.read_triangle_mesh("sample/TriangleMesh.ply")
 vertices = np.asarray(mesh.vertices)
 faces = np.asarray(mesh.triangles)
 
