@@ -1,40 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import subprocess
-import sys
-
-from setuptools import Extension
+from pybind11.setup_helpers import Pybind11Extension
+from pybind11.setup_helpers import build_ext
 from setuptools import setup
-
-
-def get_include_dirs(lib):
-    if sys.version_info >= (3, 7):
-        x = subprocess.run(["pkg-config", "--cflags", lib], capture_output=True, check=True)
-    else:
-        x = subprocess.run(["pkg-config", "--cflags", lib], stdout=subprocess.PIPE, check=True)
-
-    l = x.stdout.decode().strip().split()
-    res = []
-    for x in l:
-        if x[:2] == '-I':
-            res.append(x[2:])
-    return res
-
-
-class get_pybind_include(object):
-    """Helper class to determine the pybind11 include path
-    The purpose of this class is to postpone importing pybind11
-    until it is actually installed, so that the ``get_include()``
-    method can be invoked. """
-
-    def __init__(self, user=False):
-        self.user = user
-
-    def __str__(self):
-        import pybind11
-        return pybind11.get_include(self.user)
-
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -42,16 +11,11 @@ with open("README.md", "r") as fh:
 # Reference on building C and C++ Extensions:
 # https://docs.python.org/3/extending/building.html
 ext_modules = [
-    Extension(
+    Pybind11Extension(
         'romicgal',
         sources=['src/cgal_skel.cc'],
         include_dirs=[
-            # Path to pybind11 headers
-            get_pybind_include(),
-            get_pybind_include(user=True),
-            *get_include_dirs("eigen3"),
-            "/usr/include/",  # required to include `CGAL/*`
-            "/usr/include/x86_64-linux-gnu/",  # required to include `bits/timesize.h`
+            "/usr/include/eigen3",
         ],
         language='c++',
         extra_compile_args=["-std=c++14"],
@@ -64,7 +28,7 @@ ext_modules = [
 # https://packaging.python.org/en/latest/specifications/core-metadata/
 opts = dict(
     name='romicgal',
-    version='0.0.2',
+    version='0.1.0',
     description='Python CGAL bindings for skeletonization.',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -75,6 +39,16 @@ opts = dict(
     url='https://github.com/romi/romicgal',
     download_url='',
     ext_modules=ext_modules,
+    install_requires=[
+        "numpy",
+        "open3d >=0.9.0.0",
+    ],
+    extras_require={
+        "test": "pytest"
+    },
+    cmdclass={
+        "build_ext": build_ext
+    },
     classifiers=[
         "Programming Language :: C++",
         "Programming Language :: Python :: 3",
@@ -84,13 +58,13 @@ opts = dict(
     ],
     license="LGPL-3.0",
     license_files='LICENSE.txt',
-    keywords=['ROMI', 'skeletonization', 'CGAL'],
+    keywords=[
+        'ROMI',
+        'skeletonization',
+        'CGAL'
+    ],
     platforms=['linux'],
     zip_safe=False,
-    install_requires=[
-        'pybind11 >=2.4',
-        'open3d >=0.9.0.0',
-    ],
     python_requires='>=3.8',
 )
 
