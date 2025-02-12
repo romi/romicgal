@@ -1,8 +1,7 @@
 #!/bin/bash
 
+# Docker image tag to use, 'latest' by default:
 vtag="latest"
-api_url='https://db.romi-project.eu'
-port=3000
 
 usage() {
   echo "USAGE:"
