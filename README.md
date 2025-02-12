@@ -42,6 +42,8 @@ You need to install:
 - `build-essential`  
 - `libeigen3-dev`  
 - `libcgal-dev`
+- `libgmp-dev`
+- `libmpfr-dev`
 
 For example, on Ubuntu:
 ```shell
@@ -49,7 +51,9 @@ sudo apt install \
     build-essential \
     gcc \
     libcgal-dev \
-    libeigen3-dev
+    libeigen3-dev \
+    libgmp-dev \
+    libmpfr-dev
 ```
 
 #### Clone the Sources
@@ -71,7 +75,7 @@ Now you should activate your environment (named `romicgal` here) and install the
 
 ```shell
 conda activate romicgal
-python -m pip install -e .
+python -m pip install .
 ```
 
 ## Usage
@@ -82,7 +86,7 @@ A quick usage example:
 import romicgal
 from open3d import open3d
 
-mesh = open3d.io.read_triangle_mesh('sample/mesh.ply')
+mesh = open3d.io.read_triangle_mesh('sample/TriangleMesh.ply')
 points, lines, skelcorres = romicgal.skeletonize_mesh_with_corres(mesh.vertices, mesh.triangles)
 
 l = open3d.geometry.LineSet()
