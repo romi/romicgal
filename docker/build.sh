@@ -1,18 +1,16 @@
 #!/bin/bash
+# - Defines colors and message types:
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+NC="\033[0m" # No Color
+INFO="${GREEN}INFO${NC}    "
+ERROR="${RED}ERROR${NC}   "
+bold() { echo -e "\e[1m$*\e[0m"; }
 
-###############################################################################
-# Example usages:
-###############################################################################
-# 1. Default build options will create `roboticsmicrofarms/romicgal:latest` pointing at ROMI database:
-# $ ./build.sh
-#
-# 2. Build image with 'debug' image tag & another 'romicgal' branch options:
-# $ ./build.sh -t debug -b 'feature/faster_docker'
-
-user=$USER
+# - Default variables
+# Image tag to use, 'latest' by default:
 vtag="latest"
-branch='master'
-api_url='https://db.romi-project.eu'
+# String aggregating the docker build options to use:
 docker_opts=""
 
 usage() {
@@ -25,10 +23,6 @@ usage() {
   echo "OPTIONS:"
   echo "  -t, --tag
     Docker image tag to use, default to '$vtag'."
-  echo "  -u, --user
-    User name to create inside docker image, default to '$user'."
-  echo "  -b, --branch
-    Git branch to use for cloning 'romicgal' inside docker image, default to '$branch'."
   # Docker options:
   echo "  --no-cache
     Do not use cache when building the image, (re)start from scratch."
@@ -44,14 +38,6 @@ while [ "$1" != "" ]; do
   -t | --tag)
     shift
     vtag=$1
-    ;;
-  -u | --user)
-    shift
-    user=$1
-    ;;
-  -b | --branch)
-    shift
-    branch=$1
     ;;
   --no-cache)
     shift
@@ -74,14 +60,21 @@ while [ "$1" != "" ]; do
 done
 
 # Get the date to estimate docker image build time:
-start_time=`date +%s`
-
+start_time=$(date +%s)
 # Start the docker image build:
-docker build -t roboticsmicrofarms/romicgal:$vtag $docker_opts \
-  --build-arg USER_NAME=$user \
-  --build-arg BRANCH=$branch \
-  .
+docker build \
+  -t roboticsmicrofarms/romicgal:$vtag $docker_opts \
+  -f docker/Dockerfile .
+# Get docker build exit code:
+docker_build_status=$?
+# Get elapsed time:
+elapsed_time=$(expr $(date +%s) - ${start_time})
 
-# Print docker image build time:
-echo
-echo "Build time: $(expr `date +%s` - $start_time)s"
+# Print build time if successful (code 0), else print exit code
+if [ ${docker_build_status} == 0 ]; then
+  echo -e "\n${INFO}Docker build SUCCEEDED in ${elapsed_time}s!"
+else
+  echo -e "\n${ERROR}Docker build FAILED after ${elapsed_time}s with code ${docker_build_status}!"
+fi
+# Exit with docker build exit code:
+exit ${docker_build_status}
