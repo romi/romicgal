@@ -1,0 +1,13 @@
+[build-system]
+requires = [
+    "setuptools>=42",
+    "pybind11>=2.10.0",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+# List of command-line flags here:
+# https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags
+addopts = "-ra"
+testpaths = ["test",]
