@@ -2,9 +2,10 @@ name: romicgal
 channels:
   - defaults
   - conda-forge
+  - open3d-admin
 dependencies:
   - python>=3.8
-  - libstdcxx-ng  # required to use `open3d.visualization.draw`
   - pip>=20.3
-  - pip:
-    - open3d>=0.9.0.0
+  - numpy
+  - open3d>=0.9.0.0
+  - libstdcxx-ng  # required to use `open3d.visualization.draw`
