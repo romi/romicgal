@@ -1,5 +1,10 @@
 # CGAL Python Bindings for Skeletonization
 
+![Anaconda-Version](https://anaconda.org/romi-eu/romicgal/badges/version.svg)
+![Anaconda-Platforms](https://anaconda.org/romi-eu/romicgal/badges/platforms.svg)
+![Anaconda-License](https://anaconda.org/romi-eu/romicgal/badges/license.svg)
+![Anaconda-Downloads](https://anaconda.org/romi-eu/romicgal/badges/downloads.svg)
+
 Python bindings to use: `CGAL/extract_mean_curvature_flow_skeleton`.
 
 <figure>
@@ -23,29 +28,30 @@ https://doc.cgal.org/5.4.5/Surface_mesh_skeletonization/group__PkgSurfaceMeshSke
 
 ## Getting Started
 
-The recommended installation procedure is to **use the conda package**.
+The recommended way to install this library is by using the **conda package**.
 
 ### Conda Package
 
-In the **activated** environment of your choice, to install the conda package, simply run:
+In your **activated** environment of choice, install the conda package by running:
 
 ```shell
 conda install romicgal -c romi-eu
 ```
 
-### Install from Sources
+### Install from Source
 
 #### Requirements
 
-You need to install:  
-- `gcc`  
-- `build-essential`  
-- `libeigen3-dev`  
-- `libcgal-dev`
-- `libgmp-dev`
-- `libmpfr-dev`
+To build and install from source, the following dependencies are required:
+- **C++ build tools** (_e.g._, `cmake` and `make`)
+- A **C++ Compiler** compliant with C++ standard 11 or later (_e.g._, `gcc` or `clang`)
+- The **CGAL library** (`CGAL`)
+- The **Eigen library** (`Eigen3`)
+- The **GMP library** (`GMP`)
+- The **MPFR library** (`MPFR`)
 
-For example, on Ubuntu:
+**Example:** On Ubuntu 22.04, you can install these dependencies with:
+
 ```shell
 sudo apt install \
     build-essential \
@@ -56,22 +62,26 @@ sudo apt install \
     libmpfr-dev
 ```
 
-#### Clone the Sources
+#### Cloning the Repository  
+
+First, clone the source code and navigate to the project directory:
 
 ```shell
 git clone https://github.com/romi/romicgal.git
 cd romicgal
 ```
 
-#### Build & Install
+#### Setting Up a Virtual Environment  
 
-You can install the package dependencies in an isolated conda environment with:
+We recommend creating a dedicated conda environment to install the package and its dependencies. Use the provided YAML file to create an environment named `romicgal` as shown below:
 
 ```shell
 conda env create --file conda/env/romicgal.yaml
 ```
 
-Now you should activate your environment (named `romicgal` here) and install the sources with `pip`:
+#### Building and Installing  
+
+Activate your newly created environment and install the sources using `pip`:
 
 ```shell
 conda activate romicgal
@@ -95,32 +105,41 @@ l.lines = open3d.utility.Vector2iVector(lines)
 open3d.visualization.draw_geometries([l])
 ```
 
-:warning: **WARNING** :warning:  
-To use the newly installed package, do not forget to activate the conda environment:
-
-```shell
-conda activate romicgal
-```
-
 ## Conda Packaging
 
-### Build Packages
+### Install Requirements for Packaging  
 
-To build the `romicgal` conda packages, from the root folder in the `base` environment, run:
+To package the library, follow the official Anaconda documentation on [Conda Packages](https://docs.anaconda.com/anacondaorg/user-guide/packages/conda-packages).
+
+First, install `anaconda-client` and `conda-build` in the **base environment**:
 
 ```shell
-conda build conda/recipe/ -c conda-forge
+conda install anaconda-client conda-build
 ```
 
 :warning: **WARNING** :warning:  
-> This must be done in the `base` environment!
+> These steps must be performed in the **base** conda environment.
 
-Built packages are available under `~/miniconda3/conda-bld/linux-64/`.
+### Building Conda Packages  
 
-### Upload Packages
+From the root `romicgal/` directory and within the **base environment**, build the conda packages using the following command:
 
-After a successful build, to upload the packages, run:
+```shell
+conda build conda/recipe/ -c conda-forge -c open3d-admin
+```
+
+The built packages will be stored in the folder `~/miniconda3/conda-bld/linux-64/`.
+
+:warning: **WARNING** :warning:  
+> This process must be completed in the **base** conda environment.
+
+### Uploading Conda Packages  
+
+After successfully building the package, you can upload it with the command:
 
 ```shell
 anaconda upload --user romi-eu --label main ~/miniconda3/conda-bld/linux-64/romicgal*.tar.bz2
 ```
+
+:warning: **WARNING** :warning:  
+> This process must be completed in the **base** conda environment.
