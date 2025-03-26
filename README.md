@@ -1,12 +1,10 @@
-# CGAL Python Bindings for Skeletonization
+# [![ROMI_logo](docs/assets/images/ROMI_logo_green_25.svg)](https://romi-project.eu) / romicgal
 
 [![Licence](https://img.shields.io/github/license/romi/romicgal?color=lightgray)](https://www.gnu.org/licenses/lgpl-3.0.en.html)
 [![Python Version](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Fromi%2Fromicgal%2Frefs%2Fheads%2Fmaster%2Fpyproject.toml&logo=python&logoColor=white)]()
 [![PyPI - Version](https://img.shields.io/pypi/v/romicgal?logo=pypi&logoColor=white)](https://pypi.org/project/romicgal/)
 [![Conda - Version](https://img.shields.io/conda/vn/romi-eu/romicgal?logo=anaconda&logoColor=white&label=romi-eu&color=%2344A833)](https://anaconda.org/romi-eu/romicgal)
 [![GitHub branch check runs](https://img.shields.io/github/check-runs/romi/romicgal/master)](https://github.com/romi/romicgal)
-
-[![ROMI_logo](docs/assets/images/ROMI_logo_green.svg)](https://romi-project.eu)
 
 ## Overview
 
@@ -26,10 +24,9 @@ Andrea Tagliasacchi, Ibraheem Alhashim, Matt Olson, and Hao Zhang. _Mean Curvatu
 **Computer Graphics Forum** (Proceedings of the Symposium on Geometry Processing), 31(5):1735–1744, 2012.  
 [10.1111/j.1467-8659.2012.03178.x](https://doi.org/10.1111/j.1467-8659.2012.03178.x).  
 
-Free [PDF](https://www.cs.sfu.ca/~haoz/pubs/tag_sgp12.pdf).  
+Free [PDF](https://www.cs.sfu.ca/~haoz/pubs/tag_sgp12.pdf).
 
-CGAL Reference manual for [Surface mesh skeletonization](
-https://doc.cgal.org/5.4.5/Surface_mesh_skeletonization/group__PkgSurfaceMeshSkeletonizationRef.html).
+CGAL Reference manual for [Surface mesh skeletonization](https://doc.cgal.org/5.4.5/Surface_mesh_skeletonization/group__PkgSurfaceMeshSkeletonizationRef.html).
 
 ## Getting Started
 
