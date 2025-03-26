@@ -1,14 +1,19 @@
 # CGAL Python Bindings for Skeletonization
 
-![Anaconda-Version](https://anaconda.org/romi-eu/romicgal/badges/version.svg)
-![Anaconda-Platforms](https://anaconda.org/romi-eu/romicgal/badges/platforms.svg)
-![Anaconda-License](https://anaconda.org/romi-eu/romicgal/badges/license.svg)
-![Anaconda-Downloads](https://anaconda.org/romi-eu/romicgal/badges/downloads.svg)
+[![Licence](https://img.shields.io/github/license/romi/romicgal?color=lightgray)](https://www.gnu.org/licenses/lgpl-3.0.en.html)
+[![Python Version](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Fromi%2Fromicgal%2Frefs%2Fheads%2Fmaster%2Fpyproject.toml&logo=python&logoColor=white)]()
+[![PyPI - Version](https://img.shields.io/pypi/v/romicgal?logo=pypi&logoColor=white)](https://pypi.org/project/romicgal/)
+[![Conda - Version](https://img.shields.io/conda/vn/romi-eu/romicgal?logo=anaconda&logoColor=white&label=romi-eu&color=%2344A833)](https://anaconda.org/romi-eu/romicgal)
+[![GitHub branch check runs](https://img.shields.io/github/check-runs/romi/romicgal/master)](https://github.com/romi/romicgal)
 
-Python bindings to use: `CGAL/extract_mean_curvature_flow_skeleton`.
+[![ROMI_logo](docs/assets/images/ROMI_logo_green.svg)](https://romi-project.eu)
+
+## Overview
+
+This package contains Python bindings to use the following CGAL method: `CGAL/extract_mean_curvature_flow_skeleton`.
 
 <figure>
-  <img src="doc/assets/paper_preview.png" width="350" />
+  <img src="docs/assets/paper_preview.png" width="350" />
   <figcaption>
     This algorithm extracts a curve skeleton for a triangulated polygonal mesh without borders, based on mean curvature flow.  
     <u>Source</u>: Tagliasacchi et al., _Mean Curvature Skeletons_. **Computer Graphics Forum** (2012).
