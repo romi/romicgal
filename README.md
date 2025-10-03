@@ -52,7 +52,7 @@ To build and install from source, the following dependencies are required:
 - The **GMP library** (`GMP`)
 - The **MPFR library** (`MPFR`)
 
-**Example:** On Ubuntu 22.04, you can install these dependencies with:
+**Example:** On Ubuntu 22.04 & 24.04, you can install these dependencies with:
 
 ```shell
 sudo apt install \
