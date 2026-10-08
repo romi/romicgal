@@ -1,7 +1,7 @@
 [build-system]
 requires = [
-    "setuptools >=42",
-    "pybind11 >=2.10.0",
+    "setuptools >=77",
+    "pybind11 >=2.11.0",
 ]
 build-backend = "setuptools.build_meta"
 
@@ -9,13 +9,13 @@ build-backend = "setuptools.build_meta"
 name = 'romicgal'
 version = '0.1.1'
 dependencies = [
-    "numpy",
+    "numpy >=2",
     "open3d >=0.9.0",
 ]
 description = "Python CGAL bindings for skeletonization."
 readme = "README.md"
 requires-python = ">=3.8"
-license = { 'text' = "LGPL-3.0-or-later" }   # to replace by "LGPL-3.0-or-later" only in next release, pending deprecation
+license = "LGPL-3.0-or-later"   # PEP 639 SPDX expression
 authors = [
     { name = "Peter Hanappe", email = "peter.hanappe@sony.com" },
     { name = "Timothée Wintz", email = "timothee@timwin.fr" },
